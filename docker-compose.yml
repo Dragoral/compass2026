@@ -1,0 +1,53 @@
+# Развёртывание: PostgreSQL + API + веб-интерфейс (nginx). Секреты — в файле .env рядом (не в git):
+#   POSTGRES_PASSWORD=...   MASTER_KEYS=k1:<base64 32 байта>   DEMO_PASSWORD=...
+# Ключ: python -c "import os,base64;print('k1:'+base64.urlsafe_b64encode(os.urandom(32)).decode().rstrip('='))"
+name: kompas
+
+services:
+  db:
+    image: postgres:16.4-alpine
+    restart: unless-stopped
+    command: ["postgres", "-c", "max_connections=200"]
+    environment:
+      POSTGRES_DB: kompas
+      POSTGRES_USER: kompas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kompas -d kompas"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://kompas:${POSTGRES_PASSWORD}@db:5432/kompas
+      MASTER_KEYS: ${MASTER_KEYS:?задайте MASTER_KEYS в .env}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?задайте DEMO_PASSWORD в .env}
+      WORKERS: ${WORKERS:-4}
+      NOTIFY_PROVIDER: ${NOTIFY_PROVIDER:-log}
+      CORS_ORIGINS: ${CORS_ORIGINS:?задайте CORS_ORIGINS в .env}
+      APP_ENV: ${APP_ENV:-production}
+      REQUIRE_MFA: ${REQUIRE_MFA:-1}
+    expose:
+      - "8000"
+    volumes:
+      - apidata:/app/data
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "${WEB_PORT:-8081}:80"
+
+volumes:
+  pgdata:
+  apidata:
