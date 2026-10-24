@@ -1901,3 +1901,297 @@ body::after {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ========== НР: интенсивность — 3 карточки ========== */
+.ae-form {
+  max-width: 36rem;
+}
+
+.ae-intensity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.ae-intensity-title {
+  font-size: 0.98rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.ae-intensity-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.ae-intensity-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.25rem !important;
+  margin: 0 !important;
+  padding: 0.85rem 0.9rem !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  cursor: pointer;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ae-intensity-card input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.ae-intensity-label {
+  font-size: 1.05rem;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.ae-intensity-hint {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.ae-intensity-card-active,
+.ae-intensity-card:has(input:checked) {
+  border-color: var(--accent) !important;
+  background: var(--accent-soft) !important;
+  box-shadow: 0 0 0 2px rgba(63, 122, 114, 0.15);
+}
+
+.ae-check {
+  padding: 0.55rem 0 !important;
+  gap: 0.7rem !important;
+}
+
+.ae-check span {
+  line-height: 1.4;
+}
+
+/* ========== Редакторы строк (диагнозы / препараты) ========== */
+.form .table-wrap,
+.panel .table-wrap {
+  margin: 0.5rem 0 1rem;
+  overflow-x: auto;
+}
+
+.form table.compact th,
+.form table.compact td,
+.table-wrap table.compact th,
+.table-wrap table.compact td {
+  padding: 0.65rem 0.7rem;
+  vertical-align: middle;
+}
+
+.form table.compact input,
+.form table.compact select,
+.table-wrap table.compact input,
+.table-wrap table.compact select {
+  min-height: 42px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0.5rem 0.65rem !important;
+  font-size: 0.95rem !important;
+}
+
+.form table.compact .button-link,
+.table-wrap .button-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 0.35rem;
+  white-space: nowrap;
+}
+
+.form table.compact tfoot td,
+.table-wrap table.compact tfoot td {
+  padding: 0.75rem 0.7rem;
+}
+
+@media (max-width: 640px) {
+  .ae-intensity-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== Пациенты: тулбар поиска ========== */
+.patient-toolbar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: flex-end !important;
+  gap: 0.85rem 1rem !important;
+}
+
+.patient-search-field {
+  flex: 1 1 16rem !important;
+  min-width: min(100%, 14rem) !important;
+}
+
+.patient-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  padding-bottom: 2px;
+}
+
+.patient-alert-filter {
+  margin: 0 !important;
+  white-space: nowrap;
+  font-size: 0.95rem !important;
+}
+
+/* ========== Визиты ========== */
+.visits-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.visits-heading-actions {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0.65rem !important;
+  margin: 0 !important;
+}
+
+.visit-form {
+  margin-bottom: 1.25rem;
+  padding: 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+}
+
+.visit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.visit-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.visit-plan {
+  margin-top: 0.65rem;
+}
+
+.visit-plan summary {
+  cursor: pointer;
+  font-weight: 650;
+  color: var(--accent-dark);
+}
+
+.plan-list {
+  list-style: none;
+  margin: 0.65rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: var(--bg-alt);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.plan-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.98rem;
+}
+
+.plan-key {
+  font-weight: 650;
+  color: var(--text);
+}
+
+.plan-val {
+  color: var(--muted);
+}
+
+/* ========== Админ: новый сотрудник — ровные поля ========== */
+.form-row-aligned {
+  align-items: flex-start !important;
+}
+
+.field-block {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.45rem !important;
+  flex: 1 1 14rem !important;
+  min-width: min(100%, 12rem) !important;
+}
+
+.field-hint {
+  margin: 0 !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  color: var(--muted) !important;
+  line-height: 1.35;
+  min-height: 1.2em;
+}
+
+.field-hint-spacer {
+  visibility: hidden;
+}
+
+/* ========== Конструктор шкалы: флаги и кнопки ========== */
+.item-flag-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.75rem 1.25rem !important;
+  align-items: center !important;
+  margin: 0.5rem 0 !important;
+}
+
+.item-flag-row .checkbox {
+  margin: 0 !important;
+  white-space: nowrap;
+}
+
+.item-move-row {
+  margin-top: 0.5rem !important;
+  gap: 0.65rem !important;
+}
+
+.item-move-row button {
+  margin: 0 !important;
+}
+
+/* Таблица вариантов ответа */
+.form table.compact input[type="number"],
+.table-wrap table.compact input[type="number"] {
+  max-width: 5rem;
+}
+
+@media (max-width: 700px) {
+  .patient-toolbar-actions {
+    width: 100%;
+  }
+  .patient-toolbar-actions button {
+    flex: 1;
+  }
+  .visits-heading-actions {
+    width: 100%;
+  }
+  .visits-heading-actions button {
+    flex: 1;
+  }
+}

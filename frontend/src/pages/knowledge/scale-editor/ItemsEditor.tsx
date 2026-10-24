@@ -63,7 +63,7 @@ export function ItemsEditor({ items, weighted, onChange }: {
               <OptionsEditor options={it.options ?? []} onChange={(options) => update(i, { options })}
                              onApplyAll={type === 'choice' && items.length > 1 ? () => applyOptionsToAll(it.options ?? []) : undefined} />
             )}
-            <div className="row">
+            <div className="row item-flag-row">
               <label className="checkbox">
                 <input type="checkbox" checked={!!it.reverse} onChange={(e) => update(i, { reverse: e.target.checked })} />
                 Обратный подсчёт
@@ -77,7 +77,7 @@ export function ItemsEditor({ items, weighted, onChange }: {
                 Обязательный
               </label>
             </div>
-            <div className="row">
+            <div className="actions item-move-row">
               <button type="button" className="secondary" disabled={i === 0} onClick={() => move(i, -1)}>Выше</button>
               <button type="button" className="secondary" disabled={i === items.length - 1} onClick={() => move(i, 1)}>Ниже</button>
               <button type="button" className="secondary danger" disabled={items.length === 1} onClick={() => remove(i)}>Удалить вопрос</button>

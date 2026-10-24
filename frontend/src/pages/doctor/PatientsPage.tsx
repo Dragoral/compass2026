@@ -71,15 +71,17 @@ export function PatientsPage() {
         <Link className="button-anchor" to="/doctor/patients/new"><span aria-hidden="true">＋</span> Добавить пациента</Link>
       </div>
       <form className="toolbar patient-toolbar" role="search" onSubmit={onSearch}>
-        <label>
+        <label className="patient-search-field">
           <span>Поиск пациента</span>
           <input type="search" placeholder="Введите ФИО или код пациента" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
-        <button type="submit">Найти</button>
-        <label className="checkbox patient-alert-filter">
-          <input type="checkbox" checked={params.get('only_alerts') === 'true'} onChange={(e) => toggleAlerts(e.target.checked)} />
-          Только с оповещениями
-        </label>
+        <div className="patient-toolbar-actions">
+          <button type="submit">Найти</button>
+          <label className="checkbox patient-alert-filter">
+            <input type="checkbox" checked={params.get('only_alerts') === 'true'} onChange={(e) => toggleAlerts(e.target.checked)} />
+            <span>Только с оповещениями</span>
+          </label>
+        </div>
       </form>
       <Loader state={state}>
         {(rows) => {

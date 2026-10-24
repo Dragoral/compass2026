@@ -141,19 +141,20 @@ function NewUserForm({ onCreated }: { onCreated: (login: string, password: strin
   return (
     <form className="form" onSubmit={onSubmit} aria-labelledby="new-user-h">
       <h2 id="new-user-h">Новый сотрудник</h2>
-      <div className="row">
-        <label>
+      <div className="row form-row-aligned">
+        <label className="field-block">
           Логин
           <input required minLength={3} maxLength={64} pattern="[a-z0-9._-]+" autoComplete="off" value={form.login}
                  aria-describedby="login-hint" onChange={(e) => set({ login: e.target.value })} />
-          <span id="login-hint" className="muted small">Строчная латиница, цифры, «.», «_», «-»</span>
+          <span id="login-hint" className="field-hint">Строчная латиница, цифры, «.», «_», «-»</span>
         </label>
-        <label>
+        <label className="field-block">
           Роль
           <select value={form.role} onChange={(e) => set({ role: e.target.value })}>
             <option value="doctor">Врач</option>
             <option value="admin">Администратор</option>
           </select>
+          <span className="field-hint field-hint-spacer" aria-hidden="true">&nbsp;</span>
         </label>
       </div>
       <label>
