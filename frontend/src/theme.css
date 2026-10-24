@@ -2195,3 +2195,256 @@ body::after {
     flex: 1;
   }
 }
+
+/* ========== Line editor: диагнозы, препараты, варианты ========== */
+.line-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.line-editor-empty {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.line-editor-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 9rem) minmax(0, 1fr) auto;
+  gap: 0.65rem 0.75rem;
+  align-items: end;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.line-editor-row-4 {
+  grid-template-columns: minmax(0, 1.4fr) minmax(5rem, 0.7fr) minmax(4.5rem, 0.5fr) minmax(7rem, 0.9fr) auto;
+}
+
+.line-field {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  margin: 0 !important;
+  min-width: 0;
+}
+
+.line-field-label {
+  font-size: 0.75rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.line-field input,
+.line-field select {
+  width: 100% !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+}
+
+.line-field-score {
+  max-width: 5.5rem;
+}
+
+.line-field-sm {
+  max-width: none;
+}
+
+.line-remove {
+  min-height: 44px !important;
+  margin: 0 !important;
+  white-space: nowrap;
+}
+
+.line-add {
+  align-self: flex-start;
+  min-height: 42px !important;
+}
+
+.item-editor {
+  margin-bottom: 1rem;
+}
+
+.item-editor-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.options-editor {
+  margin: 0.75rem 0;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-alt);
+}
+
+.options-editor-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.options-editor-actions {
+  margin-top: 0.65rem !important;
+}
+
+.options-editor .line-editor-row {
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  background: #fff;
+}
+
+@media (max-width: 800px) {
+  .line-editor-row,
+  .line-editor-row-4,
+  .options-editor .line-editor-row {
+    grid-template-columns: 1fr !important;
+    align-items: stretch;
+  }
+  .line-remove {
+    width: 100%;
+  }
+  .line-field-score {
+    max-width: none;
+  }
+}
+
+
+/* ========== Мед. строки: плоско, без двойных рамок ========== */
+.form fieldset {
+  margin: 0 0 1.15rem !important;
+  padding: 1rem 1.1rem 1.1rem !important;
+  border: 1px solid #E5E1DB !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  min-width: 0 !important;
+}
+
+.form fieldset legend {
+  float: none !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 0 0.75rem !important;
+  padding: 0 0.25rem !important;
+  font-size: 1rem !important;
+  font-weight: 750 !important;
+  color: #2E3236 !important;
+  line-height: 1.3 !important;
+}
+
+.med-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.med-rows-head {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 5.5rem;
+  gap: 0.5rem;
+  padding: 0 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5F666C;
+}
+
+.med-rows-head-4 {
+  grid-template-columns: minmax(0, 1.3fr) minmax(5rem, 0.7fr) 4.5rem minmax(7rem, 0.9fr) 5.5rem;
+}
+
+.med-rows-line {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 5.5rem;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.med-rows-line-4 {
+  grid-template-columns: minmax(0, 1.3fr) minmax(5rem, 0.7fr) 4.5rem minmax(7rem, 0.9fr) 5.5rem;
+}
+
+.med-input {
+  width: 100% !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0.5rem 0.7rem !important;
+  border: 1px solid #D4CFC7 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  font-size: 0.98rem !important;
+  box-sizing: border-box !important;
+}
+
+.med-input-code {
+  font-weight: 650;
+}
+
+.med-btn-remove {
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 0.65rem !important;
+  border: 1px solid #D4CFC7 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #5F666C !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  white-space: nowrap;
+  box-shadow: none !important;
+}
+
+.med-btn-remove:hover:not(:disabled) {
+  background: #f7f5f1 !important;
+  border-color: #c4bfb7 !important;
+  color: #2E3236 !important;
+}
+
+.med-btn-add {
+  align-self: flex-start;
+  min-height: 40px !important;
+  margin-top: 0.15rem !important;
+  padding: 0 0.9rem !important;
+  border: 1px dashed #C4BFB7 !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  color: #3F7A72 !important;
+  font-size: 0.95rem !important;
+  font-weight: 650 !important;
+  box-shadow: none !important;
+}
+
+.med-btn-add:hover:not(:disabled) {
+  background: #E8F2F0 !important;
+  border-style: solid !important;
+  border-color: #3F7A72 !important;
+}
+
+/* Убрать старые вложенные line-editor карточки внутри fieldset */
+.form fieldset .line-editor-row,
+.form fieldset .line-editor-empty {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 720px) {
+  .med-rows-head { display: none; }
+  .med-rows-line,
+  .med-rows-line-4 {
+    grid-template-columns: 1fr !important;
+  }
+  .med-btn-remove {
+    width: 100%;
+  }
+}
