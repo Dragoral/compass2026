@@ -22,6 +22,11 @@ function MedicalDataForm() {
   const { id, card, reload } = usePatient()
   const p = card.patient
   const [diagnoses, setDiagnoses] = useState(() => diagnosesToRows(p.diagnoses))
+  const [comorbidities, setComorbidities] = useState(() => diagnosesToRows(
+    ((p.profile?.comorbidities as { icd10?: string; title?: string }[] | undefined) ?? []).map((x) => ({
+      icd10: x.icd10 ?? '', title: x.title ?? '', primary: false,
+    })),
+  ))
   const [meds, setMeds] = useState(() => medsToRows(p.current_meds))
   const [courses, setCourses] = useState(() => coursesToRows(p.therapy_history))
   const [profile, setProfile] = useState({
@@ -36,6 +41,7 @@ function MedicalDataForm() {
       height_cm: profile.height_cm ? Number(profile.height_cm) : undefined,
       weight_kg: profile.weight_kg ? Number(profile.weight_kg) : undefined,
       allergies: profile.allergies.split(',').map((s) => s.trim()).filter(Boolean),
+      comorbidities: rowsToDiagnoses(comorbidities).map(({ icd10, title }) => ({ icd10, title })),
     },
     diagnoses: rowsToDiagnoses(diagnoses),
     current_meds: rowsToMeds(meds),
@@ -62,6 +68,10 @@ function MedicalDataForm() {
       <fieldset>
         <legend>Диагнозы (первый — основной)</legend>
         <RowsEditor rows={diagnoses} onChange={setDiagnoses} labels={['Код МКБ-10', 'Формулировка']} placeholders={['F41.1', '']} />
+      </fieldset>
+      <fieldset>
+        <legend>Сопутствующие заболевания</legend>
+        <RowsEditor rows={comorbidities} onChange={setComorbidities} labels={['Код МКБ-10', 'Формулировка']} placeholders={['I10', 'Артериальная гипертензия']} />
       </fieldset>
       <fieldset>
         <legend>Принимаемые препараты (назначенные другими врачами)</legend>
@@ -148,6 +158,9 @@ interface Extracted {
     conditions: string[]
     egfr: number | null
     pregnant: boolean | null
+    profile?: {
+      comorbidities?: { icd10?: string; title?: string }[]
+    }
   }
 }
 
@@ -196,6 +209,7 @@ function Documents() {
           <h3>Найдено в документе</h3>
           <dl className="summary">
             <dt>Диагнозы</dt><dd>{d.diagnoses.map((x) => `${x.icd10}${x.title ? ` ${x.title}` : ''}`).join('; ') || '—'}</dd>
+            <dt>Сопутствующие заболевания</dt><dd>{((d.profile?.comorbidities as { icd10?: string; title?: string }[] | undefined) ?? []).map((x) => `${x.icd10 ?? ''}${x.title ? ` ${x.title}` : ''}`.trim()).filter(Boolean).join('; ') || '—'}</dd>
             <dt>Препараты</dt><dd>{d.medications.map((m) => [m.name ?? m.inn, m.dose].filter(Boolean).join(' ')).join('; ') || '—'}</dd>
             <dt>Ранее принимал</dt><dd>{d.past_medications.map((m) => m.inn).filter(Boolean).join(', ') || '—'}</dd>
             <dt>Аллергии</dt><dd>{d.allergies.join(', ') || '—'}</dd>

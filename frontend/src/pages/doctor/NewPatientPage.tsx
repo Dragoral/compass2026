@@ -20,6 +20,7 @@ export function NewPatientPage() {
     height_cm: '', weight_kg: '', allergies: '', in_person_visit: true,
   })
   const [diagnoses, setDiagnoses] = useState<Row[]>([{ a: '', b: '' }])
+  const [comorbidities, setComorbidities] = useState<Row[]>([])
   const [meds, setMeds] = useState<Row[]>([])
   const [courses, setCourses] = useState<Course[]>([])
   const [created, setCreated] = useState<Created | null>(null)
@@ -33,7 +34,8 @@ export function NewPatientPage() {
     profile: {
       height_cm: form.height_cm ? Number(form.height_cm) : undefined,
       weight_kg: form.weight_kg ? Number(form.weight_kg) : undefined,
-      allergies: form.allergies.split(',').map((s) => s.trim()).filter(Boolean),
+      comorbidities: rowsToDiagnoses(comorbidities).map(({ icd10, title }) => ({ icd10, title })),
+        allergies: form.allergies.split(',').map((s) => s.trim()).filter(Boolean),
     },
     diagnoses: rowsToDiagnoses(diagnoses),
     current_meds: rowsToMeds(meds),
@@ -98,6 +100,10 @@ export function NewPatientPage() {
         <fieldset>
           <legend>Диагнозы (первый — основной)</legend>
           <RowsEditor rows={diagnoses} onChange={setDiagnoses} labels={['Код МКБ-10', 'Формулировка']} placeholders={['F41.1', '']} />
+        </fieldset>
+        <fieldset>
+          <legend>Сопутствующие заболевания</legend>
+          <RowsEditor rows={comorbidities} onChange={setComorbidities} labels={['Код МКБ-10', 'Формулировка']} placeholders={['I10', '']} />
         </fieldset>
         <fieldset>
           <legend>Принимаемые препараты</legend>

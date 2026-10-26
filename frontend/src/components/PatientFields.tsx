@@ -59,13 +59,11 @@ export function RowsEditor({ rows, onChange, labels, placeholders }: {
   const update = (i: number, patch: Partial<Row>) => onChange(rows.map((r, j) => (j === i ? { ...r, ...patch } : r)))
   return (
     <div className="med-rows">
-      {rows.length > 0 && (
-        <div className="med-rows-head" aria-hidden="true">
-          <span>{labels[0]}</span>
-          <span>{labels[1]}</span>
-          <span />
-        </div>
-      )}
+      <div className="med-rows-head">
+        <span>{labels[0]}</span>
+        <span>{labels[1]}</span>
+        <span className="med-rows-head-action" />
+      </div>
       {rows.map((r, i) => (
         <div key={i} className="med-rows-line">
           <input
@@ -97,16 +95,14 @@ export function RowsEditor({ rows, onChange, labels, placeholders }: {
 export function CoursesEditor({ rows, onChange }: { rows: Course[]; onChange: (rows: Course[]) => void }) {
   const update = (i: number, patch: Partial<Course>) => onChange(rows.map((r, j) => (j === i ? { ...r, ...patch } : r)))
   return (
-    <div className="med-rows">
-      {rows.length > 0 && (
-        <div className="med-rows-head med-rows-head-4" aria-hidden="true">
-          <span>Препарат (МНН)</span>
-          <span>Доза</span>
-          <span>Недель</span>
-          <span>Исход</span>
-          <span />
-        </div>
-      )}
+    <div className="med-rows med-rows-courses">
+      <div className="med-rows-head med-rows-head-4">
+        <span>Препарат (МНН)</span>
+        <span>Доза</span>
+        <span>Недель</span>
+        <span>Исход</span>
+        <span className="med-rows-head-action" />
+      </div>
       {rows.map((r, i) => (
         <div key={i} className="med-rows-line med-rows-line-4">
           <input
